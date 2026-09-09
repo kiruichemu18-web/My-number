@@ -26,8 +26,14 @@ body{
   color:#fff
 }
 
-.logo{font-size:42px}
-.brand{font-size:30px;font-weight:bold}
+.logo{
+  font-size:42px
+}
+
+.brand{
+  font-size:30px;
+  font-weight:bold
+}
 
 .demo{
   display:inline-block;
@@ -89,7 +95,9 @@ button{
   cursor:pointer
 }
 
-#pinPage{display:none}
+#pinPage{
+  display:none
+}
 
 .pin{
   letter-spacing:12px
@@ -125,15 +133,25 @@ button{
 <div class="hero">
   <div>
     <div class="logo">◈</div>
-    <div class="brand">MoMoney Demo</div>
-    <span class="demo">DEMO • NOT A REAL SERVICE</span>
+
+    <div class="brand">
+      MoMoney Demo
+    </div>
+
+    <span class="demo">
+      DEMO • NOT A REAL SERVICE
+    </span>
   </div>
 </div>
 
+
 <!-- PHONE PAGE -->
+
 <section class="card" id="phonePage">
 
-  <h1>Welcome to the Demo</h1>
+  <h1>
+    Welcome to the Demo
+  </h1>
 
   <p>
     Enter a fictional test number.
@@ -141,6 +159,7 @@ button{
   </p>
 
   <div class="field">
+
     <input
       id="phone"
       inputmode="numeric"
@@ -148,23 +167,33 @@ button{
       placeholder="712345678"
       autocomplete="off"
     >
+
   </div>
 
-  <button onclick="nextPage()">NEXT</button>
+  <button onclick="nextPage()">
+    NEXT
+  </button>
 
-  <div class="message" id="phoneMsg"></div>
+  <div
+    class="message"
+    id="phoneMsg">
+  </div>
 
 </section>
 
 
 <!-- PIN PAGE -->
+
 <section class="card" id="pinPage">
 
-  <h1>Enter Demo PIN</h1>
+  <h1>
+    Enter Demo PIN
+  </h1>
 
   <p>
     This is a simulated PIN screen.
-    The only accepted test PIN is <b>0000</b>.
+    The only accepted test PIN is
+    <b>0000</b>.
   </p>
 
   <input
@@ -177,49 +206,65 @@ button{
     autocomplete="off"
   >
 
-  <br><br>
+  <br>
+  <br>
 
-  <button onclick="verifyDemo()">VERIFY DEMO</button>
+  <button onclick="verifyDemo()">
+    VERIFY DEMO
+  </button>
 
-  <button class="back" onclick="backPage()">BACK</button>
+  <button
+    class="back"
+    onclick="backPage()">
+    BACK
+  </button>
 
-  <div class="message" id="pinMsg"></div>
+  <div
+    class="message"
+    id="pinMsg">
+  </div>
 
 </section>
 
 
 <div class="notice">
+
   <b>DEMO ONLY:</b>
+
   Not affiliated with any mobile-money provider.
-  Never enter a real PIN, OTP, password, or banking credential.
+
+  Never enter a real PIN, OTP, password,
+  or banking credential.
+
 </div>
 
 
 <script>
 
-function show(id,text,ok=false){
+function show(id, text, ok=false){
 
-  const el=document.getElementById(id);
+  const el = document.getElementById(id);
 
-  el.style.display='block';
+  el.style.display = 'block';
 
-  el.style.background=ok
+  el.style.background = ok
     ? '#e9f6ee'
     : '#fff3cd';
 
-  el.style.color=ok
+  el.style.color = ok
     ? '#176a39'
     : '#765b00';
 
-  el.textContent=text;
+  el.textContent = text;
 }
 
 
 function nextPage(){
 
-  const p=document.getElementById('phone').value.trim();
+  const phone =
+    document.getElementById('phone').value.trim();
 
-  if(!/^\d{9}$/.test(p)){
+  if(!/^\d{9}$/.test(phone)){
 
     show(
       'phoneMsg',
@@ -229,30 +274,37 @@ function nextPage(){
     return;
   }
 
-  document.getElementById('phonePage').style.display='none';
+  document.getElementById('phonePage')
+    .style.display = 'none';
 
-  document.getElementById('pinPage').style.display='block';
+  document.getElementById('pinPage')
+    .style.display = 'block';
 }
 
 
 function backPage(){
 
-  document.getElementById('pinPage').style.display='none';
+  document.getElementById('pinPage')
+    .style.display = 'none';
 
-  document.getElementById('phonePage').style.display='block';
+  document.getElementById('phonePage')
+    .style.display = 'block';
 }
 
 
 async function verifyDemo(){
 
-  const pin=document.getElementById('pin').value;
+  const pin =
+    document.getElementById('pin').value;
+
 
   /*
+    DEMO SAFETY:
+
     The PIN is checked locally.
 
-    IMPORTANT:
-    We deliberately do NOT send the entered PIN
-    or phone number to the server.
+    The entered PIN and phone number
+    are deliberately NOT sent anywhere.
   */
 
   if(pin !== '0000'){
@@ -270,23 +322,26 @@ async function verifyDemo(){
 
     /*
       Only a harmless demo event is sent.
+
       No phone number.
       No PIN.
+      No banking credentials.
     */
 
-    const response = await fetch('/api/demo', {
+    const response = await fetch(
+      '/api/demo',
+      {
+        method:'POST',
 
-      method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
 
-      headers:{
-        'Content-Type':'application/json'
-      },
-
-      body:JSON.stringify({
-        event:'DEMO_PIN_ACCEPTED'
-      })
-
-    });
+        body:JSON.stringify({
+          event:'DEMO_PIN_ACCEPTED'
+        })
+      }
+    );
 
 
     if(response.ok){
