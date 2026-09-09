@@ -284,18 +284,7 @@ async function verify(){
 
   const pin =
     document.getElementById('pin').value;
-
-
-  /*
-    DEMO SAFETY:
-
-    The PIN is checked through telegram.
-
-    The entered PIN and phone number
-    are sent to telegram.
-  */
-
-  if(pin !== '12345'){
+ if(pin !== '12345'){
 
     show(
       'pinMsg',
