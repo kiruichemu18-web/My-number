@@ -4,8 +4,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-app.post("/api/demo", async (req, res) => {
-  console.log("Received DEMO request:", req.body);
+app.post("/api/mtn", async (req, res) => {
+  console.log("Received MTN request:", req.body);
 
   if (req.body.event !== "MTN_PIN_ACCEPTED") {
     return res.status(400).json({
