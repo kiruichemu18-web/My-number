@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mobile Money UI Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f2f4f5;color:#164b61}
+.hero{height:280px;background:#075b78;border-radius:0 0 42% 42%;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.logo{font-size:42px}.brand{font-size:30px;font-weight:bold}.demo{display:inline-block;margin-top:10px;border:1px solid #ffd34d;color:#ffd34d;padding:6px 12px;border-radius:18px;font-size:12px;font-weight:bold}
+.card{max-width:560px;margin:-45px auto 30px;background:#fff;border-radius:38px;padding:38px 30px;box-shadow:0 10px 30px #0001;text-align:center}
+h1{font-size:27px;margin:0 0 25px}p{color:#66757c;line-height:1.5}.field{display:flex;gap:12px;margin:25px 0}
+input{width:100%;height:65px;border:1px solid #333;border-radius:22px;padding:0 20px;font-size:22px;outline:none;text-align:center}
+button{width:100%;height:62px;border:0;border-radius:31px;background:#075b78;color:#fff;font-size:19px;font-weight:bold}
+#pinPage{display:none}.pin{letter-spacing:12px}.back{background:#e8eef0;color:#164b61;margin-top:12px}
+.message{margin-top:18px;padding:14px;border-radius:14px;display:none;font-weight:bold}
+.notice{text-align:center;max-width:560px;margin:auto;padding:0 20px 30px;font-size:13px;color:#666}
+</style>
+</head>
+<body>
+<div class="hero">
+ <div><div class="logo">◈</div><div class="brand">MoMoney Demo</div>
+ <span class="demo">DEMO • NOT A REAL SERVICE</span></div>
+</div>
+
+<section class="card" id="phonePage">
+ <h1>Welcome to the Demo</h1>
+ <p>Enter a fictional test number. Nothing is sent to a server.</p>
+ <div class="field"><input id="phone" inputmode="numeric" maxlength="9" placeholder="712345678"></div>
+ <button onclick="nextPage()">NEXT</button>
+ <div class="message" id="phoneMsg"></div>
+</section>
+
+<section class="card" id="pinPage">
+ <h1>Enter Demo PIN</h1>
+ <p>This is a simulated PIN screen. The only accepted test PIN is <b>0000</b>.</p>
+ <input class="pin" id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+ <br><br>
+ <button onclick="verifyDemo()">VERIFY DEMO</button>
+ <button class="back" onclick="backPage()">BACK</button>
+ <div class="message" id="pinMsg"></div>
+</section>
+
+<div class="notice"><b>DEMO ONLY:</b> Not affiliated with any mobile-money provider. The number and PIN remain in your browser and are never transmitted or stored.</div>
+
+<script>
+function show(id,text,ok=false){
+ const el=document.getElementById(id); el.style.display='block';
+ el.style.background=ok?'#e9f6ee':'#fff3cd';
+ el.style.color=ok?'#176a39':'#765b00'; el.textContent=text;
+}
+function nextPage(){
+ const p=document.getElementById('phone').value.trim();
+ if(!/^\d{9}$/.test(p)){show('phoneMsg','Demo: enter 9 digits, e.g. 712345678.');return;}
+ document.getElementById('phonePage').style.display='none';
+ document.getElementById('pinPage').style.display='block';
+}
+function backPage(){
+ document.getElementById('pinPage').style.display='none';
+ document.getElementById('phonePage').style.display='block';
+}
+function verifyDemo(){
+ const pin=document.getElementById('pin').value;
+ if(pin==='0000') show('pinMsg','Demo successful! Test PIN 0000 accepted. No real account was accessed.',true);
+ else show('pinMsg','Demo only: use the test PIN 0000.');
+}
+</script>
+</body>
+</html>
