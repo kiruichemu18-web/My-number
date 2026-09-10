@@ -2,16 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>MoMo Demo</title>
 
   <style>
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -24,50 +19,68 @@
       color: #123;
     }
 
-    /* TOP DEMO BAR */
+    /* =========================
+       DEMO BAR
+    ========================= */
 
     .demo-bar {
       background: #111;
       color: #ffcc00;
       text-align: center;
       padding: 10px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
     }
 
 
-    /* HERO */
+    /* =========================
+       HEADER / LOGO
+    ========================= */
 
     .hero {
-      height: 310px;
+      height: 305px;
       background: #075b76;
       color: white;
       text-align: center;
-      padding-top: 45px;
+      padding-top: 42px;
       border-radius: 0 0 35% 35%;
     }
 
-    .demo-icon {
-      width: 82px;
-      height: 82px;
+    /*
+      MoMo-style demo logo.
+      It is deliberately marked as DEMO
+      rather than pretending to be an
+      official MTN logo.
+    */
+
+    .momo-logo {
+      width: 78px;
+      height: 78px;
 
       margin: auto;
 
-      border: 6px solid #ffcc00;
+      background: #ffcc00;
+
+      border: 5px solid white;
+
       border-radius: 18px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      color: #ffcc00;
-      font-size: 38px;
-      font-weight: bold;
+      color: #075b76;
+
+      font-size: 27px;
+      font-weight: 900;
+
+      box-shadow:
+        0 4px 10px rgba(0,0,0,.15);
     }
 
     .hero h1 {
-      margin-top: 15px;
-      font-size: 40px;
+      margin-top: 13px;
+      font-size: 35px;
     }
 
     .hero h1 span {
@@ -75,14 +88,16 @@
     }
 
     .hero p {
-      margin-top: 10px;
-      font-size: 13px;
+      margin-top: 8px;
+      font-size: 11px;
       font-weight: bold;
       letter-spacing: 2px;
     }
 
 
-    /* CARD */
+    /* =========================
+       MAIN CARD
+    ========================= */
 
     .card {
       width: calc(100% - 35px);
@@ -96,55 +111,72 @@
 
       border-radius: 40px;
 
-      padding: 35px;
+      padding: 35px 25px;
 
       box-shadow:
-        0 10px 30px rgba(0, 0, 0, .12);
+        0 10px 30px rgba(0,0,0,.12);
     }
 
     .card h2 {
       text-align: center;
+
       color: #075b76;
 
       margin-bottom: 30px;
 
-      font-size: 30px;
+      font-size: 25px;
     }
 
 
-    /* NUMBER */
+    /* =========================
+       PHONE SECTION
+    ========================= */
 
     .number-row {
       display: flex;
-      gap: 15px;
+
+      gap: 14px;
+
       align-items: center;
     }
 
-    .country-box {
-      width: 115px;
-      height: 82px;
+    .country-selector {
+      width: 105px;
+      height: 80px;
+
+      flex-shrink: 0;
+
+      background: white;
 
       border: 1px solid #777;
 
-      border-radius: 22px;
+      border-radius: 23px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
-      gap: 8px;
-
-      flex-shrink: 0;
+      gap: 7px;
     }
 
-    .flag {
-      font-size: 35px;
+    .uganda-flag {
+      font-size: 37px;
+
+      line-height: 1;
     }
 
     .arrow {
-      font-size: 22px;
       color: #075b76;
+
+      font-size: 22px;
+
+      font-weight: bold;
     }
+
+
+    /* PHONE INPUT */
 
     .input-box {
       flex: 1;
@@ -153,73 +185,80 @@
     .input-box label {
       display: block;
 
-      background: white;
-
       width: max-content;
 
       padding: 0 8px;
 
-      margin-left: 15px;
+      margin-left: 14px;
+
       margin-bottom: -6px;
 
       position: relative;
+
       z-index: 2;
 
-      font-size: 16px;
-      font-weight: bold;
+      background: white;
 
-      color: #075b76;
+      font-size: 14px;
+
+      font-weight: bold;
     }
 
     .phone-input {
-      height: 82px;
+      height: 80px;
 
       border: 1px solid #777;
 
       border-radius: 22px;
 
       display: flex;
+
       align-items: center;
 
-      padding: 0 20px;
-    }
-
-    .prefix {
-      font-size: 18px;
-      font-weight: bold;
-      color: #075b76;
-
-      margin-right: 8px;
-    }
-
-    .phone-input input {
-      width: 100%;
-
-      border: none;
-      outline: none;
-
-      font-size: 18px;
-
-      background: transparent;
+      padding: 0 18px;
     }
 
     .phone-input:focus-within {
       border: 2px solid #075b76;
     }
 
+    .prefix {
+      color: #075b76;
 
-    /* TERMS */
+      font-size: 17px;
+
+      font-weight: bold;
+
+      margin-right: 7px;
+    }
+
+    .phone-input input {
+      width: 100%;
+
+      border: none;
+
+      outline: none;
+
+      background: transparent;
+
+      font-size: 17px;
+    }
+
+
+    /* =========================
+       TERMS
+    ========================= */
 
     .terms {
       text-align: center;
 
       color: #68757b;
 
-      margin-top: 35px;
+      margin-top: 28px;
 
       line-height: 1.6;
 
-      font-size: 15px;
+      font-size: 13px;
     }
 
     .terms strong {
@@ -227,18 +266,20 @@
     }
 
 
-    /* BUTTON */
+    /* =========================
+       NEXT BUTTON
+    ========================= */
 
     .next {
-      width: calc(100% - 70px);
+      width: calc(100% - 35px);
 
       max-width: 510px;
 
       display: block;
 
-      margin: 210px auto 20px;
+      margin: 35px auto 20px;
 
-      height: 65px;
+      height: 64px;
 
       border: none;
 
@@ -248,7 +289,7 @@
 
       color: white;
 
-      font-size: 21px;
+      font-size: 20px;
 
       font-weight: bold;
 
@@ -260,152 +301,212 @@
     }
 
 
-    /* MESSAGE */
+    /* =========================
+       MESSAGE
+    ========================= */
 
     .message {
-      margin-top: 20px;
+      margin-top: 18px;
 
       text-align: center;
 
-      padding: 14px;
+      padding: 13px;
 
       border-radius: 10px;
 
       font-weight: bold;
+
+      font-size: 14px;
     }
 
     .error {
       background: #ffe5e5;
+
       color: #a00000;
     }
 
     .success {
       background: #e2f5e5;
+
       color: #176b28;
     }
 
 
-    /* DEMO WARNING */
+    /* =========================
+       PIN DEMO SECTION
+    ========================= */
 
-    .mtn-warning {
-      width: calc(100% - 35px);
+    #pinSection {
+      display: none;
 
-      max-width: 510px;
+      margin-top: 30px;
 
-      margin: 20px auto;
+      padding-top: 25px;
 
-      padding: 18px;
-
-      background: #fff1b8;
-
-      border-radius: 15px;
-
-      color: #333;
-
-      font-size: 14px;
+      border-top: 1px solid #eee;
     }
 
-    .warning-title {
-      color: #075b76;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-
-    /* PIN DEMO PAGE */
-
-    .pin-demo {
+    .pin-heading {
       text-align: center;
+
+      color: #222;
+
+      font-size: 21px;
+
+      font-weight: bold;
+
+      margin-bottom: 22px;
     }
 
-    .pin-demo h3 {
-      font-size: 22px;
-      margin: 25px 0;
+    .demo-number {
+      text-align: center;
+
+      color: #075b76;
+
+      font-weight: bold;
+
+      font-size: 17px;
+
+      margin-bottom: 22px;
     }
+
+
+    /* PIN BOXES */
 
     .pin-boxes {
       display: flex;
+
       justify-content: center;
-      gap: 10px;
-      margin: 25px 0;
+
+      gap: 9px;
+
+      margin: 20px 0;
     }
 
     .pin-box {
       width: 55px;
-      height: 65px;
+
+      height: 62px;
 
       border: 2px solid #ddd;
 
       border-radius: 16px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
-      font-size: 28px;
       color: #075b76;
+
+      font-size: 27px;
+
+      background: white;
     }
 
+
+    /* FORGOT */
+
     .forgot {
-      color: #666;
-      font-size: 18px;
-      margin-bottom: 25px;
+      text-align: center;
+
+      color: #68757b;
+
+      margin: 18px 0;
+
+      font-size: 16px;
     }
+
+
+    /* DEMO NOTICE */
 
     .demo-notice {
       background: #fff1b8;
 
-      border-radius: 12px;
+      color: #333;
 
-      padding: 15px;
+      border-radius: 13px;
+
+      padding: 14px;
+
+      text-align: center;
 
       font-size: 13px;
+
+      line-height: 1.5;
 
       font-weight: bold;
     }
 
-    .pin-button {
+    .verify {
       width: 100%;
-      margin-top: 30px;
-    }
 
-    .back {
-      width: 100%;
-      margin-top: 12px;
-      background: #333;
+      margin-top: 25px;
     }
 
 
-    /* SUCCESS */
+    /* =========================
+       SUCCESS
+    ========================= */
 
-    .success-screen {
+    #successPage {
+      display: none;
+
       text-align: center;
-      padding: 20px 0;
+
+      margin-top: 25px;
     }
 
     .success-icon {
-      font-size: 60px;
+      font-size: 58px;
+
       margin-bottom: 15px;
     }
 
-    .success-screen h2 {
-      margin-bottom: 15px;
-    }
-
-    .success-screen p {
+    .success-page-text {
       color: #68757b;
+
       line-height: 1.6;
+
+      font-size: 15px;
     }
 
 
-    /* HIDDEN */
+    /* =========================
+       WARNING
+    ========================= */
 
-    .hidden {
-      display: none;
+    .warning {
+      width: calc(100% - 35px);
+
+      max-width: 510px;
+
+      margin: 20px auto;
+
+      padding: 17px;
+
+      background: #fff1b8;
+
+      border-radius: 15px;
+
+      text-align: center;
+
+      color: #333;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+    .warning strong {
+      color: #075b76;
     }
 
 
-    /* MOBILE */
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 500px) {
 
@@ -414,24 +515,20 @@
       }
 
       .hero h1 {
-        font-size: 35px;
+        font-size: 32px;
       }
 
       .card {
-        padding: 30px 20px;
+        padding: 30px 18px;
       }
 
-      .country-box {
+      .country-selector {
         width: 95px;
       }
 
-      .next {
-        width: calc(100% - 35px);
-        margin-top: 180px;
-      }
-
       .pin-box {
-        width: 48px;
+        width: 50px;
+
         height: 60px;
       }
     }
@@ -443,19 +540,23 @@
 <body>
 
 
-  <!-- DEMO BAR -->
+  <!-- =========================
+       DEMO BAR
+  ========================= -->
 
   <div class="demo-bar">
     MoMo DEMO — NOT AN OFFICIAL MTN SERVICE
   </div>
 
 
-  <!-- HERO -->
+  <!-- =========================
+       HEADER
+  ========================= -->
 
   <section class="hero">
 
-    <div class="demo-icon">
-      M
+    <div class="momo-logo">
+      MoMo
     </div>
 
     <h1>
@@ -469,45 +570,43 @@
   </section>
 
 
+  <!-- =========================
+       MAIN FORM
+  ========================= -->
 
-  <!-- ======================== -->
-  <!-- NUMBER PAGE -->
-  <!-- ======================== -->
-
-  <div
-    class="card"
-    id="numberPage"
-  >
+  <div class="card" id="mainCard">
 
     <h2>
       Welcome to MoMo Demo
     </h2>
 
 
+    <!-- PHONE NUMBER -->
+
     <div class="number-row">
 
 
-      <!-- UGANDA -->
+      <!-- ROUND/ROUNDED FLAG SELECTOR -->
 
-      <div class="country-box">
+      <div class="country-selector">
 
-        <span class="flag">
+        <span class="uganda-flag">
           🇺🇬
         </span>
 
         <span class="arrow">
-         ⌄
+          ⌄
         </span>
 
       </div>
 
 
-      <!-- NUMBER -->
+      <!-- PHONE -->
 
       <div class="input-box">
 
         <label for="phone">
-          Demo number *
+          Enter number *
         </label>
 
         <div class="phone-input">
@@ -521,7 +620,8 @@
             type="tel"
             maxlength="9"
             inputmode="numeric"
-            placeholder="e.g. 74598845"
+            placeholder="74598845"
+            oninput="numberChanged()"
           >
 
         </div>
@@ -530,6 +630,8 @@
 
     </div>
 
+
+    <!-- TERMS -->
 
     <div class="terms">
 
@@ -542,93 +644,64 @@
 
     <div id="numberMessage"></div>
 
-  </div>
+
+    <!-- =========================
+         PIN SECTION
+         APPEARS AFTER NUMBER
+    ========================= -->
+
+    <div id="pinSection">
+
+      <div class="pin-heading">
+        Enter your 5-digit PIN
+      </div>
 
 
-  <!-- NEXT -->
-
-  <button
-    class="next"
-    onclick="continueDemo()"
-  >
-    NEXT&nbsp;&nbsp; →
-  </button>
+      <div
+        class="demo-number"
+        id="demoNumber"
+      >
+        +256
+      </div>
 
 
-  <!-- WARNING -->
+      <!-- VISUAL DEMO BOXES -->
 
-  <div class="mtn-warning">
+      <div class="pin-boxes">
 
-    <div class="warning-title">
-      ⚠️ &nbsp; DEMO ONLY
-    </div>
+        <div class="pin-box">•</div>
 
-    This is a demonstration.
-    Not an official MTN service.
+        <div class="pin-box">•</div>
 
-  </div>
+        <div class="pin-box">•</div>
+
+        <div class="pin-box">•</div>
+
+        <div class="pin-box">•</div>
+
+      </div>
 
 
-
-  <!-- ======================== -->
-  <!-- DEMO VERIFICATION PAGE -->
-  <!-- ======================== -->
-
-  <div
-    class="card hidden"
-    id="pinPage"
-  >
-
-    <div class="pin-demo">
-
-      <h2>
-        MoMo Demo
-      </h2>
-
-      <h3>
-        Demo verification
-      </h3>
+      <div class="forgot">
+        Forgot PIN?
+      </div>
 
 
       <div class="demo-notice">
 
         DEMO ONLY<br>
 
-        No real MTN PIN is requested,
+        No real MTN PIN is collected,
         stored, or transmitted.
 
       </div>
 
 
-      <div class="pin-boxes">
-
-        <div class="pin-box">•</div>
-        <div class="pin-box">•</div>
-        <div class="pin-box">•</div>
-        <div class="pin-box">•</div>
-        <div class="pin-box">•</div>
-
-      </div>
-
-
-      <p class="forgot">
-        Demo verification
-      </p>
-
-
       <button
-        class="next pin-button"
+        class="next verify"
         onclick="verifyDemo()"
       >
-        VERIFY DEMO
-      </button>
-
-
-      <button
-        class="next back"
-        onclick="goBack()"
-      >
-        BACK
+        VERIFY DEMO →
       </button>
 
 
@@ -639,74 +712,77 @@
   </div>
 
 
-
-  <!-- ======================== -->
-  <!-- SUCCESS PAGE -->
-  <!-- ======================== -->
+  <!-- =========================
+       SUCCESS
+  ========================= -->
 
   <div
-    class="card hidden"
+    class="card"
     id="successPage"
   >
 
-    <div class="success-screen">
-
-      <div class="success-icon">
-        ✅
-      </div>
-
-      <h2>
-        Demo successful
-      </h2>
-
-      <p>
-        Your demonstration has completed successfully.
-      </p>
-
-
-      <button
-        class="next"
-        style="width:100%; margin-top:30px;"
-        onclick="restartDemo()"
-      >
-        DONE
-      </button>
-
+    <div class="success-icon">
+      ✅
     </div>
+
+    <h2>
+      Demo successful
+    </h2>
+
+    <p class="success-page-text">
+
+      The MoMo demonstration
+      has completed successfully.
+
+    </p>
+
+
+    <button
+      class="next"
+      style="width:100%; margin-top:30px;"
+      onclick="restartDemo()"
+    >
+      DONE
+    </button>
 
   </div>
 
 
+  <!-- =========================
+       WARNING
+  ========================= -->
 
-  <!-- ======================== -->
-  <!-- JAVASCRIPT -->
-  <!-- ======================== -->
+  <div class="warning">
+
+    <strong>
+      ⚠️ DEMO ONLY
+    </strong>
+
+    <br>
+
+    This is a demonstration
+    interface and is not an
+    official MTN service.
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
 
   <script>
 
 
-    function showMessage(
-      id,
-      text,
-      success
-    ) {
+    /*
+      SHOW PIN SECTION
 
-      const element =
-        document.getElementById(id);
+      Once a valid demo number
+      is entered, the verification
+      section appears underneath it.
+    */
 
-      element.className =
-        "message " +
-        (success ? "success" : "error");
-
-      element.textContent = text;
-
-    }
-
-
-
-    /* NUMBER → DEMO PAGE */
-
-    function continueDemo() {
+    function numberChanged() {
 
       const phone =
         document
@@ -715,67 +791,61 @@
           .trim();
 
 
-      /*
-        Demo validation only.
-        The number is NOT sent
-        to Telegram.
-      */
+      const pinSection =
+        document
+          .getElementById("pinSection");
+
+
+      const demoNumber =
+        document
+          .getElementById("demoNumber");
+
+
+      if (/^\d{8,9}$/.test(phone)) {
+
+        pinSection.style.display =
+          "block";
+
+        demoNumber.textContent =
+          "+256 " + phone;
+
+      } else {
+
+        pinSection.style.display =
+          "none";
+
+      }
+
+    }
+
+
+    /*
+      DEMO VERIFICATION
+
+      Only sends a non-sensitive
+      demo event to the server.
+    */
+
+    async function verifyDemo() {
+
+      const phone =
+        document
+          .getElementById("phone")
+          .value
+          .trim();
+
 
       if (!/^\d{8,9}$/.test(phone)) {
 
         showMessage(
-          "numberMessage",
-          "Enter an 8 or 9 digit demo number.",
+          "pinMessage",
+          "Enter a valid demo number first.",
           false
         );
 
         return;
       }
 
-
-      document
-        .getElementById("numberPage")
-        .classList
-        .add("hidden");
-
-
-      document
-        .getElementById("pinPage")
-        .classList
-        .remove("hidden");
-
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-
-
-
-    /* BACK */
-
-    function goBack() {
-
-      document
-        .getElementById("pinPage")
-        .classList
-        .add("hidden");
-
-
-      document
-        .getElementById("numberPage")
-        .classList
-        .remove("hidden");
-
-    }
-
-
-
-    /* DEMO VERIFICATION */
-
-    async function verifyDemo() {
 
       try {
 
@@ -790,8 +860,10 @@
             },
 
             body: JSON.stringify({
+
               event:
-                "MTN_DEMO_SUBMISSION"
+                "MTN_DEMO_VERIFICATION"
+
             })
 
           });
@@ -806,7 +878,7 @@
           data.success === true
         ) {
 
-          showSuccessPage();
+          showSuccess();
 
         } else {
 
@@ -825,7 +897,7 @@
 
         showMessage(
           "pinMessage",
-          "Could not contact the demo server.",
+          "Could not connect to the demo server.",
           false
         );
 
@@ -834,21 +906,45 @@
     }
 
 
+    /*
+      MESSAGE
+    */
 
-    /* SUCCESS */
+    function showMessage(
+      id,
+      text,
+      success
+    ) {
 
-    function showSuccessPage() {
+      const element =
+        document.getElementById(id);
+
+      element.className =
+        "message " +
+        (success
+          ? "success"
+          : "error");
+
+      element.textContent =
+        text;
+
+    }
+
+
+    /*
+      SUCCESS
+    */
+
+    function showSuccess() {
 
       document
-        .getElementById("pinPage")
-        .classList
-        .add("hidden");
+        .getElementById("mainCard")
+        .style.display = "none";
 
 
       document
         .getElementById("successPage")
-        .classList
-        .remove("hidden");
+        .style.display = "block";
 
 
       window.scrollTo({
@@ -859,26 +955,30 @@
     }
 
 
-
-    /* RESTART */
+    /*
+      RESTART
+    */
 
     function restartDemo() {
 
       document
         .getElementById("successPage")
-        .classList
-        .add("hidden");
+        .style.display = "none";
 
 
       document
-        .getElementById("numberPage")
-        .classList
-        .remove("hidden");
+        .getElementById("mainCard")
+        .style.display = "block";
 
 
       document
         .getElementById("phone")
         .value = "";
+
+
+      document
+        .getElementById("pinSection")
+        .style.display = "none";
 
 
       document
@@ -889,12 +989,6 @@
       document
         .getElementById("pinMessage")
         .textContent = "";
-
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
 
     }
 
