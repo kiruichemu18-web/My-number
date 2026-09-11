@@ -68,7 +68,7 @@ Status: Successful
 Date: ${date}
 Time: ${time}
 
-This is a official MoMo submission.`;
+By continuing you accept our terms and privacy policy.`;
 
 
   try {
